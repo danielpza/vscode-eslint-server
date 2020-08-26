@@ -4,6 +4,9 @@
   "description": "",
   "main": "lib/index.js",
   "bin": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "prepare": "npm run build",
     "prebuild": "rm -rf lib",
@@ -18,8 +21,8 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "vscode-uri": "^2.1.1",
     "vscode-languageserver": "7.0.0-next.4",
-    "vscode-languageserver-textdocument": "1.0.1"
+    "vscode-languageserver-textdocument": "1.0.1",
+    "vscode-uri": "^2.1.1"
   }
 }
