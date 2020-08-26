@@ -155,20 +155,20 @@ namespace ProbeFailedRequest {
   );
 }
 
-interface ConfirmESLintLibraryParams {
-  scope: "local" | "global";
-  file: string;
-  libraryPath: string;
-}
+// interface ConfirmESLintLibraryParams {
+//   scope: "local" | "global";
+//   file: string;
+//   libraryPath: string;
+// }
 
-namespace ConfirmESLintLibrary {
-  export const type = new RequestType<
-    ConfirmESLintLibraryParams,
-    boolean,
-    void,
-    void
-  >("eslint/confirmLocalESLint");
-}
+// namespace ConfirmESLintLibrary {
+//   export const type = new RequestType<
+//     ConfirmESLintLibraryParams,
+//     boolean,
+//     void,
+//     void
+//   >("eslint/confirmLocalESLint");
+// }
 
 type RunValues = "onType" | "onSave";
 
@@ -908,32 +908,32 @@ function resolveSettings(
       settings.silent = settings.validate === Validate.probe;
       return promise.then(
         async (libraryPath) => {
-          const scope: "local" | "global" =
-            settings.resolvedGlobalPackageManagerPath !== undefined &&
-            libraryPath.startsWith(settings.resolvedGlobalPackageManagerPath)
-              ? "global"
-              : "local";
-          const cachedLibraryConfirmation = libraryConfirmations.get(
-            libraryPath
-          );
-          const confirmationPromise =
-            cachedLibraryConfirmation === undefined
-              ? connection.sendRequest(ConfirmESLintLibrary.type, {
-                  scope: scope,
-                  file: uri,
-                  libraryPath,
-                })
-              : Promise.resolve(cachedLibraryConfirmation);
-          const confirmed = await confirmationPromise;
-          libraryConfirmations.set(libraryPath, confirmed);
-          if (confirmed !== true) {
-            settings.validate = Validate.off;
-            connection.sendDiagnostics({ uri: uri, diagnostics: [] });
-            connection.sendNotification(StatusNotification.type, {
-              state: Status.notConfirmed,
-            });
-            return settings;
-          }
+          // const scope: "local" | "global" =
+          //   settings.resolvedGlobalPackageManagerPath !== undefined &&
+          //   libraryPath.startsWith(settings.resolvedGlobalPackageManagerPath)
+          //     ? "global"
+          //     : "local";
+          // const cachedLibraryConfirmation = libraryConfirmations.get(
+          //   libraryPath
+          // );
+          // const confirmationPromise =
+          //   cachedLibraryConfirmation === undefined
+          //     ? connection.sendRequest(ConfirmESLintLibrary.type, {
+          //         scope: scope,
+          //         file: uri,
+          //         libraryPath,
+          //       })
+          //     : Promise.resolve(cachedLibraryConfirmation);
+          // const confirmed = await confirmationPromise;
+          // libraryConfirmations.set(libraryPath, confirmed);
+          // if (confirmed !== true) {
+          //   settings.validate = Validate.off;
+          //   connection.sendDiagnostics({ uri: uri, diagnostics: [] });
+          //   connection.sendNotification(StatusNotification.type, {
+          //     state: Status.notConfirmed,
+          //   });
+          //   return settings;
+          // }
           let library = path2Library.get(libraryPath);
           if (library === undefined) {
             library = loadNodeModule(libraryPath);
